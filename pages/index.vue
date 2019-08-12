@@ -9,10 +9,16 @@
       sm8
       md6
     >
-        <h1>{{word}}</h1>
-        <h2 v-if="!word">Click the microphone and say a word.</h2>
+        <h2 v-if="!words">Click the microphone and say a word.</h2>
         <v-text-field color="success" :loading="loading" disabled v-if="loading" placeholder="Listening..."></v-text-field>
-
+        <template v-if="words && !loading">
+            <v-card v-for="(result, index) in words" v-bind:key="index" class="mx-auto mb-8" min-width="50vw" max-width="75vw">
+                <v-card-title class="display-1 text--primary py-4">
+                    <v-btn class="mr-3" fab depressed dark small color="primary lighten-2" @click="say(result.transcript)"><v-icon>mdi-play</v-icon></v-btn>
+                    {{result.transcript}}
+                </v-card-title>
+            </v-card>
+        </template>
         <v-btn
             absolute
             dark
@@ -32,7 +38,8 @@
 
 export default {
   data: () => ({
-    word: null,
+    words: null,
+    synth: window.speechSynthesis,
     loading: false,
     recognition: new (window.SpeechRecognition || window.webkitSpeechRecognition || window.mozSpeechRecognition || window.msSpeechRecognition)()
   }),
@@ -43,8 +50,12 @@ export default {
           this.recognition.stop();
           this.recognition.start();
       },
+      say: function(word){
+          this.synth.speak( new SpeechSynthesisUtterance(word) );
+      },
       onResult: function(event){
-        this.word = event.results[0][0].transcript;
+          console.log(event.results[0]);
+          this.words = event.results[0];
       },
       onStart: function(event){
           this.loading = true;
@@ -66,7 +77,5 @@ export default {
 
 
 <style scoped>
-h1 {
-    font-size: 15vmin;
-}
+
 </style>
