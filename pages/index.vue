@@ -10,7 +10,7 @@
       md6
     >
         <h1>{{word}}</h1>
-        <h2 v-if="!word">Click the record button to start.</h2>
+        <h2 v-if="!word">Click the microphone and say a word.</h2>
         <v-text-field color="success" :loading="loading" disabled v-if="loading" placeholder="Listening..."></v-text-field>
 
         <v-btn
@@ -22,7 +22,7 @@
             color="pink"
             @click="listen"
         >
-            <v-icon>mic</v-icon>
+            <v-icon>mdi-microphone</v-icon>
         </v-btn>
     </v-flex>
   </v-layout>
