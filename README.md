@@ -1,6 +1,10 @@
-# how-do-you-spell
+# How do you spell...
 
-> My mind-blowing Nuxt.js project
+> A simple Nuxt PWA to convert speech to text
+
+## About 
+My kids are constantly asking me how to spell words because (as of creation) Google Home spells too quickly. I whipped up this PWA so they could run the app on any web-enabled device with a microphone.
+
 
 ## Build Setup
 
